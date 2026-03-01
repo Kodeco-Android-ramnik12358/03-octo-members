@@ -86,12 +86,23 @@ class MemberActivity : AppCompatActivity(), MemberContract.View {
 
     if(member.name.isNullOrEmpty()) {
       binding.memberName.visibility = View.GONE
+    } else {
+      binding.memberName.visibility = View.VISIBLE
     }
+
     if(member.company.isNullOrEmpty()) {
-      binding.memberCompanyContainer.visibility = View.GONE
+      binding.labelCompany?.visibility = View.GONE
+      binding.memberCompany.visibility = View.GONE
+    } else {
+      binding.labelCompany?.visibility = View.VISIBLE
+      binding.memberCompany.visibility = View.VISIBLE
     }
     if(member.email.isNullOrEmpty()) {
-      binding.memberEmailContainer.visibility = View.GONE
+      binding.labelEmail?.visibility = View.GONE
+      binding.memberEmail.visibility = View.GONE
+    } else {
+      binding.labelEmail?.visibility = View.VISIBLE
+      binding.memberEmail.visibility = View.VISIBLE
     }
 
     binding.memberName.text = member.name
