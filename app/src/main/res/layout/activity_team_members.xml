@@ -10,10 +10,10 @@
         android:id="@+id/teamNameContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_standard"
-        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
         android:background="@color/colorAccent"
-        android:layout_alignParentTop="true">
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_standard">
 
         <EditText
             android:id="@+id/teamName"
@@ -34,11 +34,25 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/teamMembersList"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:layout_below="@id/teamNameContainer"/>
+        android:layout_below="@id/teamNameContainer">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/teamMembersList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:visibility="invisible"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </FrameLayout>
 </RelativeLayout>

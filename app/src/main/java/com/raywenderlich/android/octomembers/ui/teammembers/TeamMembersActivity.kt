@@ -31,6 +31,7 @@
 package com.raywenderlich.android.octomembers.ui.teammembers
 
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
@@ -79,6 +80,7 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
     binding.showMembers.setOnClickListener {
       val teamNameValue = binding.teamName.text.toString()
       if (teamNameValue.isNotEmpty()) {
+        binding.teamMembersList.hideKeyboard()
         presenter.retrieveAllMembers(teamNameValue)
       } else {
         showTeamNameEmptyError()
@@ -97,7 +99,6 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
   }
 
   override fun showMembers(members: List<Member>) {
-    binding.teamMembersList.hideKeyboard()
     adapter.members = members
     adapter.notifyDataSetChanged()
   }
@@ -109,5 +110,23 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
   override fun clearMembers() {
     adapter.members = listOf()
     adapter.notifyDataSetChanged()
+  }
+
+  override fun showLoading() {
+    binding.loadingIndicator.visibility = View.VISIBLE
+    binding.teamMembersList.visibility = View.INVISIBLE
+  }
+
+  override fun hideLoading() {
+    binding.loadingIndicator.visibility = View.GONE
+    binding.teamMembersList.visibility = View.VISIBLE
+  }
+
+  override fun disableInput() {
+    binding.showMembers.isEnabled = false
+  }
+
+  override fun enableInput() {
+    binding.showMembers.isEnabled = true
   }
 }
