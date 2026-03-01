@@ -13,7 +13,8 @@
     android:theme="@style/AppTheme">
     <activity
       android:name=".ui.teammembers.TeamMembersActivity"
-      android:launchMode="singleTop">
+      android:launchMode="singleTop"
+      android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
@@ -22,6 +23,7 @@
     </activity>
     <activity
       android:name=".ui.member.MemberActivity"
+      android:exported="false"
       android:parentActivityName=".ui.teammembers.TeamMembersActivity"/>
   </application>
 

@@ -35,33 +35,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.raywenderlich.android.octomembers.R
+import com.raywenderlich.android.octomembers.databinding.ListItemTeamMemberBinding
 import com.raywenderlich.android.octomembers.model.Member
 import com.raywenderlich.android.octomembers.ui.member.MemberActivity
-import kotlinx.android.synthetic.main.list_item_team_member.view.*
 
 class TeamMemberAdapter(var members: List<Member>) : RecyclerView.Adapter<TeamMemberAdapter.TeamMemberViewHolder>() {
 
   override fun onBindViewHolder(holder: TeamMemberViewHolder, position: Int) = holder.bind(members[position])
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamMemberViewHolder {
-    val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_item_team_member, parent, false)
-    return TeamMemberViewHolder(itemView)
+    val binding = ListItemTeamMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    return TeamMemberViewHolder(binding)
   }
 
   override fun getItemCount() = members.size
 
-  inner class TeamMemberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+  inner class TeamMemberViewHolder(private val binding: ListItemTeamMemberBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
     lateinit var member: Member
 
     init {
-      itemView.setOnClickListener(this)
+      binding.root.setOnClickListener(this)
     }
 
     fun bind(member: Member) {
       this.member = member
-      itemView.teamMemberLogin.text = member.login
+      binding.teamMemberLogin.text = member.login
     }
 
     override fun onClick(view: View) {

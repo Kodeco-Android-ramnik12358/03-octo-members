@@ -37,20 +37,22 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raywenderlich.android.octomembers.R
+import com.raywenderlich.android.octomembers.databinding.ActivityTeamMembersBinding
 import com.raywenderlich.android.octomembers.ui.extensions.hideKeyboard
 import com.raywenderlich.android.octomembers.model.Member
 import com.raywenderlich.android.octomembers.repository.remote.RemoteRepository
-import kotlinx.android.synthetic.main.activity_team_members.*
 
 
 class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
 
   lateinit var presenter: TeamMembersContract.Presenter
   lateinit var adapter: TeamMemberAdapter
+  private lateinit var binding: ActivityTeamMembersBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_team_members)
+    binding = ActivityTeamMembersBinding.inflate(layoutInflater)
+    setContentView(binding.root)
 
     setupPresenter()
     setupEditText()
@@ -63,10 +65,10 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
   }
 
   private fun setupEditText() {
-    teamName.setSelection(teamName.text.length)
-    teamName.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+    binding.teamName.setSelection(binding.teamName.text.length)
+    binding.teamName.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
       if (actionId == EditorInfo.IME_ACTION_DONE) {
-        showMembers.performClick()
+        binding.showMembers.performClick()
         return@OnEditorActionListener true
       }
       false
@@ -74,8 +76,8 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
   }
 
   private fun setupShowMembersButton() {
-    showMembers.setOnClickListener {
-      val teamNameValue = teamName.text.toString()
+    binding.showMembers.setOnClickListener {
+      val teamNameValue = binding.teamName.text.toString()
       if (teamNameValue.isNotEmpty()) {
         presenter.retrieveAllMembers(teamNameValue)
       } else {
@@ -85,9 +87,9 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
   }
 
   private fun setupRecyclerView() {
-    teamMembersList.layoutManager = LinearLayoutManager(this)
+    binding.teamMembersList.layoutManager = LinearLayoutManager(this)
     adapter = TeamMemberAdapter(listOf())
-    teamMembersList.adapter = adapter
+    binding.teamMembersList.adapter = adapter
   }
 
   private fun showTeamNameEmptyError() {
@@ -95,7 +97,7 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
   }
 
   override fun showMembers(members: List<Member>) {
-    teamMembersList.hideKeyboard()
+    binding.teamMembersList.hideKeyboard()
     adapter.members = members
     adapter.notifyDataSetChanged()
   }

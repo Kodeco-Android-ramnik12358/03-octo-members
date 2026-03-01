@@ -36,14 +36,15 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.raywenderlich.android.octomembers.R
+import com.raywenderlich.android.octomembers.databinding.ActivityMemberBinding
 import com.raywenderlich.android.octomembers.model.Member
 import com.raywenderlich.android.octomembers.repository.remote.RemoteRepository
-import kotlinx.android.synthetic.main.activity_member.*
 
 
 class MemberActivity : AppCompatActivity(), MemberContract.View {
 
   lateinit var presenter: MemberContract.Presenter
+  private lateinit var binding: ActivityMemberBinding
 
   companion object {
     const val EXTRA_MEMBER_LOGIN = "EXTRA_MEMBER_LOGIN"
@@ -57,12 +58,13 @@ class MemberActivity : AppCompatActivity(), MemberContract.View {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_member)
+    binding = ActivityMemberBinding.inflate(layoutInflater)
+    setContentView(binding.root)
 
     setupPresenter()
     setupActionBar()
 
-    presenter.retrieveMember(memberLoginFromIntent())
+    presenter.retrieveMember(memberLoginFromIntent() ?: "")
   }
 
   private fun setupPresenter() {
@@ -77,7 +79,7 @@ class MemberActivity : AppCompatActivity(), MemberContract.View {
   private fun memberLoginFromIntent() = intent.getStringExtra(EXTRA_MEMBER_LOGIN)
 
   override fun showMember(member: Member) {
-    memberName.text = member.name
+    binding.memberName.text = member.name
   }
 
   override fun showErrorRetrievingMember() {
