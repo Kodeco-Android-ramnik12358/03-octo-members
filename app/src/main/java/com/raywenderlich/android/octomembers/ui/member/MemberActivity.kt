@@ -32,7 +32,9 @@ package com.raywenderlich.android.octomembers.ui.member
 
 import android.content.Context
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.raywenderlich.android.octomembers.R
@@ -81,6 +83,17 @@ class MemberActivity : AppCompatActivity(), MemberContract.View {
 
   override fun showMember(member: Member) {
     Picasso.get().load(member.avatarUrl).into(binding.memberAvatar)
+
+    if(member.name.isNullOrEmpty()) {
+      binding.memberName.visibility = View.GONE
+    }
+    if(member.company.isNullOrEmpty()) {
+      binding.memberCompanyContainer.visibility = View.GONE
+    }
+    if(member.email.isNullOrEmpty()) {
+      binding.memberEmailContainer.visibility = View.GONE
+    }
+
     binding.memberName.text = member.name
     binding.memberLogin.text = member.login
     binding.memberCompany.text = member.company
