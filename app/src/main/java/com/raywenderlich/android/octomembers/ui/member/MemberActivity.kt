@@ -39,6 +39,7 @@ import com.raywenderlich.android.octomembers.R
 import com.raywenderlich.android.octomembers.databinding.ActivityMemberBinding
 import com.raywenderlich.android.octomembers.model.Member
 import com.raywenderlich.android.octomembers.repository.remote.RemoteRepository
+import com.squareup.picasso.Picasso
 
 
 class MemberActivity : AppCompatActivity(), MemberContract.View {
@@ -79,7 +80,12 @@ class MemberActivity : AppCompatActivity(), MemberContract.View {
   private fun memberLoginFromIntent() = intent.getStringExtra(EXTRA_MEMBER_LOGIN)
 
   override fun showMember(member: Member) {
+    Picasso.get().load(member.avatarUrl).into(binding.memberAvatar)
     binding.memberName.text = member.name
+    binding.memberLogin.text = member.login
+    binding.memberCompany.text = member.company
+    binding.memberEmail.text = member.email
+    binding.memberType.text = member.type
   }
 
   override fun showErrorRetrievingMember() {
