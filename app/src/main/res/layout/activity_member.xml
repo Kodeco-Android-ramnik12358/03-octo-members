@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorAccent"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="@dimen/padding_standard"
         app:layout_constraintBottom_toTopOf="@+id/memberInfoContainer"
@@ -25,6 +25,7 @@
             android:layout_width="@dimen/detail_avatar_size"
             android:layout_height="@dimen/detail_avatar_size"
             android:contentDescription="@string/contentDescription_teamMemberAvatar"
+            android:padding="@dimen/padding_double"
             android:src="@drawable/ic_launcher_background" />
 
         <TextView
