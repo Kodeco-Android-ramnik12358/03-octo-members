@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.android.octomembers.databinding.ListItemTeamMemberBinding
 import com.raywenderlich.android.octomembers.model.Member
 import com.raywenderlich.android.octomembers.ui.member.MemberActivity
+import com.squareup.picasso.Picasso
 
 class TeamMemberAdapter(var members: List<Member>) : RecyclerView.Adapter<TeamMemberAdapter.TeamMemberViewHolder>() {
 
@@ -61,6 +62,8 @@ class TeamMemberAdapter(var members: List<Member>) : RecyclerView.Adapter<TeamMe
     fun bind(member: Member) {
       this.member = member
       binding.teamMemberLogin.text = member.login
+      Picasso.get().load(member.avatarUrl).into(binding.teamMemberAvatar)
+      binding.teamMemberType.text = member.type
     }
 
     override fun onClick(view: View) {
