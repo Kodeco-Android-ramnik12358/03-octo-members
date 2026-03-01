@@ -101,6 +101,7 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
   override fun showMembers(members: List<Member>) {
     adapter.members = members
     adapter.notifyDataSetChanged()
+    binding.teamMembersList.visibility = View.VISIBLE
   }
 
   override fun showErrorRetrievingMembers() {
@@ -128,5 +129,18 @@ class TeamMembersActivity : AppCompatActivity(), TeamMembersContract.View {
 
   override fun enableInput() {
     binding.showMembers.isEnabled = true
+  }
+
+  override fun showNoMembersFound(teamName: String) {
+    binding.noMembersFound.text = getString(R.string.no_members_found, teamName)
+    binding.noMembersFound.visibility = View.VISIBLE
+  }
+
+  override fun hideNoMembersFound() {
+    binding.noMembersFound.visibility = View.GONE
+  }
+
+  override fun hideMembers() {
+    binding.teamMembersList.visibility = View.INVISIBLE
   }
 }

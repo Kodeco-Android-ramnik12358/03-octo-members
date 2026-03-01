@@ -48,12 +48,12 @@ class TeamMembersPresenter(val repository: Repository, val view: TeamMembersCont
                 if (members != null) {
                     showMembersInView(members)
                 } else {
-                    clearViewMembersAndShowError()
+                    clearViewMembersAndShowError(teamName)
                 }
             }
 
             override fun onFailure(call: Call<List<Member>>?, t: Throwable?) {
-                clearViewMembersAndShowError()
+                clearViewMembersAndShowError(teamName)
             }
         })
     }
@@ -61,18 +61,21 @@ class TeamMembersPresenter(val repository: Repository, val view: TeamMembersCont
     private fun showViewLoadingState() {
         view.showLoading()
         view.disableInput()
+        view.hideNoMembersFound()
     }
 
     private fun showMembersInView(members: List<Member>) {
         view.showMembers(members)
         view.hideLoading()
         view.enableInput()
+        view.hideNoMembersFound()
     }
 
-    private fun clearViewMembersAndShowError() {
+    private fun clearViewMembersAndShowError(teamName: String) {
         view.clearMembers()
         view.showErrorRetrievingMembers()
         view.hideLoading()
         view.enableInput()
+        view.showNoMembersFound(teamName)
     }
 }
